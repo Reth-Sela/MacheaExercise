@@ -4,10 +4,6 @@ public class Sale implements DiscountRate{
     double serviseExpense ;
     double productExpense;
 
-
-    
-    
-
     public Sale(Customer customer, String date) {
         this.customer = customer;
         this.date = date;
@@ -26,7 +22,33 @@ public class Sale implements DiscountRate{
 
 
     public void setServiseExpense(double serviseExpense) {
-        this.serviseExpense = serviseExpense;
+        this.serviseExpense=serviseExpense; 
+        
+    }
+
+    public double discount(String type){
+        double ss= getServiseExpense();
+        if(type.equals("primium")){
+            //discount 20%
+            double result=ss/20;
+            ss=ss-result;
+        }
+        else if(type.equals("gold")){
+            //discount 15%
+            double result=ss/15;
+            ss=ss-result;
+        }
+        else if(type.equals("silver")){
+            //discount 10%
+            double result=ss/10;
+            ss=ss-result;
+        }
+        else{
+            ss=ss;
+        }
+        
+        
+        return ss;
     }
 
 
@@ -66,6 +88,10 @@ public class Sale implements DiscountRate{
         +customer.getCustomerType()+ "\ndate=" + date +"\nServiceExpence: "+getServiseExpense()
         +"\n ProductExpence: "+ getProductExpense();
     }
+
+   
+
+    
      
     
     
