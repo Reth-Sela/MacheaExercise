@@ -1,0 +1,23 @@
+import java.sql.Date;
+import java.time.LocalDate;
+
+public class MacheaApplication {
+    public static void main(String[] args) {
+        Type type;
+       String name= Util.InputString("Name:");
+       String putType=Util.InputString("Type:");
+     type= Util.inputType(putType);
+        LocalDate localDate=LocalDate.now();
+        String date =localDate.toString();
+        Customer customer1 = new Customer(name, type);
+        Sale sale = new Sale(customer1, date);
+        
+        double produceExpence= Util.inputDouble("Product Expence: ");
+        sale.setProductExpense(produceExpence);
+        double serviceExpence = Util.inputDouble("Service Expence: ");
+        sale.setServiseExpense(serviceExpence);
+        System.out.println("\033[H\033[2J");
+        System.out.println(sale.toString());
+    }
+
+}
