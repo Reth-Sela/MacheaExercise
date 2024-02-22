@@ -1,8 +1,16 @@
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MacheaApplication {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        List<Sale> saleList = new ArrayList<>();
         Type type;
         String name = Util.InputString("Name:");
         String putType = Util.InputString("Type:");
@@ -20,26 +28,41 @@ public class MacheaApplication {
         // original data
         System.out.println(sale.toString());
         double serviseDiscount = sale.discount(putType.toLowerCase());
+        double productDiscount = sale.productDiscount(putType.toLowerCase());
         sale.setServiseExpense(serviseDiscount);
-        int discount = 0;
+        sale.setProductExpense(productDiscount);
+        saleList.add(sale);
+        int Servicediscount = 0;
         if (putType.toLowerCase().equals("primium")) {
-            discount = 20;
-        }
-        if (putType.toLowerCase().equals("gold")) {
-            discount = 15;
-        }
-        if (putType.toLowerCase().equals("silver")) {
-            discount = 10;
+            Servicediscount = 20;
+        } else if (putType.toLowerCase().equals("gold")) {
+            Servicediscount = 15;
+        } else if (putType.toLowerCase().equals("silver")) {
+            Servicediscount = 10;
         } else {
-            discount = discount;
+            Servicediscount = Servicediscount;
         }
+
+        int proDiscount = 0;
+        if (putType.toLowerCase().equals("primium") || putType.toLowerCase().equals("silver")
+                || putType.toLowerCase().equals("gold")) {
+            proDiscount = 10;
+        } else
+            proDiscount = 0;
 
         // data after Discount
 
         System.out.println("\n\n                        Discount              ");
-        System.out.println("Cuase You are the Customer Type: " + type + "So you have " + discount + "%");
+        System.out.println("\n Cuase You are the Customer Type: " + type + " So you have " + Servicediscount
+                + "% on Servise and " + proDiscount + " %on Product");
         System.out.println(sale.toString());
+        
+        BufferedWriter bufferedWriter=new BufferedWriter(new FileWriter("D:\\SelaStoreReport",true));
+        String string=saleList.toString();
+        bufferedWriter.write(string);
+        System.out.println("succesfully wrote to the file\033");
+        bufferedWriter.close();
+        
 
     }
-
 }

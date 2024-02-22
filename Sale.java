@@ -52,6 +52,22 @@ public class Sale implements DiscountRate{
     }
 
 
+    //product 
+    public double productDiscount(String type){
+        double product= getProductExpense();
+        if(type.equals("primium")|| type.equals("silver")||type.equals("gold")){
+            //discount 10%
+            double result=product/10;
+            product-=result;
+        }
+        
+        else{
+             product=product;
+        }
+        return product;
+    }
+
+
     public double getProductExpense() {
         return productExpense;
     }
@@ -84,11 +100,12 @@ public class Sale implements DiscountRate{
 
     @Override
     public String toString() {
-        return "Sale Customer \n" +"Name:"+ customer.getCustomerName() +"\nType:"
-        +customer.getCustomerType()+ "\ndate=" + date +"\nServiceExpence: "+getServiseExpense()
-        +"\n ProductExpence: "+ getProductExpense();
+        return "Customer " +"[ Name:"+ customer.getCustomerName() +" Type:"
+        +customer.getCustomerType()+ " Date=" + date +" ServiceExpence: "+getServiseExpense()
+        +"$ ProductExpence: "+ getProductExpense()+"$ ]\n";
     }
 
+    
    
 
     
